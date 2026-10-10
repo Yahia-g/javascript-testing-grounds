@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Basics</title>
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --text: #1f2328;
+      --muted: #59636e;
+      --card: #ffffff;
+      --border: #d8dee4;
+      --code-bg: #1e1e2e;
+      --code-text: #e0def4;
+      --out-bg: #eef6ee;
+      --out-text: #1a5d1a;
+      --accent: #c99a00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: #f7df1e;
+      color: #000;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 { margin: 0 0 .3rem; }
+    header p { margin: 0; }
+    nav {
+      max-width: 900px;
+      margin: 1.5rem auto 0;
+      padding: 0 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: .3rem .7rem;
+      border-radius: 999px;
+      font-size: .9rem;
+    }
+    nav a:hover { border-color: var(--accent); }
+    main { max-width: 900px; margin: 0 auto; padding: 1rem; }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    section h2 { margin-top: 0; }
+    .example { margin: 1rem 0; }
+    .label {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      margin-bottom: .25rem;
+    }
+    pre {
+      margin: 0;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+    pre.code { background: var(--code-bg); color: var(--code-text); }
+    pre.output {
+      background: var(--out-bg);
+      color: var(--out-text);
+      border: 1px solid #b7dcb7;
+      margin-top: .5rem;
+      white-space: pre-wrap;
+    }
+    pre.output.error { background: #fdecec; color: #a40e26; border-color: #f2b8b8; }
+    code.inline {
+      background: #eff1f3;
+      padding: .1rem .35rem;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      font-size: .9em;
+    }
+    footer { text-align: center; color: var(--muted); padding: 2rem 1rem; font-size: .9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>JavaScript Basics</h1>
+  <p>A quick tour of the core language, with runnable examples and their output.</p>
+</header>
+
+<nav>
+  <a href="#variables">Variables</a>
+  <a href="#types">Data Types</a>
+  <a href="#operators">Operators</a>
+  <a href="#strings">Strings</a>
+  <a href="#conditionals">Conditionals</a>
+  <a href="#loops">Loops</a>
+  <a href="#functions">Functions</a>
+  <a href="#arrays">Arrays</a>
+  <a href="#objects">Objects</a>
+  <a href="#dom">The DOM</a>
+</nav>
+
+<main>
+
+  <section id="intro">
+    <h2>What is JavaScript?</h2>
+    <p>
+      JavaScript is the programming language of the web. HTML gives a page its structure,
+      CSS gives it style, and JavaScript gives it <strong>behaviour</strong>: reacting to clicks,
+      changing content, fetching data and more.
+    </p>
+    <p>
+      The examples below use <code class="inline">console.log()</code>, which prints a value.
+      Normally that appears in the browser's DevTools console (press <kbd>F12</kbd>), but on this
+      page each example is actually run and its output is shown in the green box under the code.
+    </p>
+  </section>
+
+  <section id="variables">
+    <h2>1. Variables</h2>
+    <p>
+      Variables store values. Use <code class="inline">let</code> for values that change and
+      <code class="inline">const</code> for values that don't. The older
+      <code class="inline">var</code> still works but is best avoided in modern code.
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>let age = 20;
+const name = "Yahia";
+
+console.log(name);
+console.log(age);
+
+age = 21; // allowed: let can be reassigned
+console.log(age);</code></pre>
+    </div>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>const pi = 3.14;
+pi = 3; // error: const cannot be reassigned</code></pre>
+    </div>
+  </section>
+
+  <section id="types">
+    <h2>2. Data Types</h2>
+    <p>
+      JavaScript has a few primitive types: <code class="inline">string</code>,
+      <code class="inline">number</code>, <code class="inline">boolean</code>,
+      <code class="inline">undefined</code>, <code class="inline">null</code> (plus
+      <code class="inline">bigint</code> and <code class="inline">symbol</code>).
+      Everything else, like arrays and functions, is an <code class="inline">object</code>.
+      The <code class="inline">typeof</code> operator tells you a value's type.
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>console.log(typeof "hello");
+console.log(typeof 42);
+console.log(typeof 3.5);
+console.log(typeof true);
+console.log(typeof undefined);
+console.log(typeof null);      // a famous quirk of the language
+console.log(typeof [1, 2, 3]);
+console.log(typeof { a: 1 });
+console.log(typeof function () {});</code></pre>
+    </div>
+  </section>
+
+  <section id="operators">
+    <h2>3. Operators</h2>
+    <p>
+      Arithmetic, comparison and logical operators. Prefer strict equality
+      <code class="inline">===</code>, which also compares types, over loose
+      <code class="inline">==</code>, which converts types first.
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>console.log(10 + 3);   // addition
+console.log(10 - 3);   // subtraction
+console.log(10 * 3);   // multiplication
+console.log(10 / 3);   // division
+console.log(10 % 3);   // remainder
+console.log(2 ** 3);   // exponent</code></pre>
+    </div>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>console.log(5 == "5");   // loose: converts "5" to 5
+console.log(5 === "5");  // strict: different types
+console.log(5 !== 3);
+console.log(7 &gt; 3 &amp;&amp; 2 &gt; 9);  // AND: both must be true
+console.log(7 &gt; 3 || 2 &gt; 9);  // OR: at least one true
+console.log(!true);             // NOT</code></pre>
+    </div>
+  </section>
+
+  <section id="strings">
+    <h2>4. Strings</h2>
+    <p>
+      Strings can use single quotes, double quotes, or backticks. Backticks create
+      <strong>template literals</strong>, which let you insert values with
+      <code class="inline">${...}</code>.
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>const first = "Ada";
+const last = "Lovelace";
+
+console.log(first + " " + last);          // concatenation
+console.log(`Hello, ${first} ${last}!`);  // template literal
+console.log(first.length);
+console.log(last.toUpperCase());
+console.log(last.includes("love"));     // case-sensitive!
+console.log(last.slice(0, 4));
+console.log("a,b,c".split(","));</code></pre>
+    </div>
+  </section>
+
+  <section id="conditionals">
+    <h2>5. Conditionals</h2>
+    <p>
+      <code class="inline">if / else if / else</code> runs code depending on a condition.
+      The ternary operator <code class="inline">condition ? a : b</code> is a short form, and
+      <code class="inline">switch</code> compares one value against many cases.
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>const score = 76;
+
+if (score &gt;= 90) {
+  console.log("Grade: A");
+} else if (score &gt;= 75) {
+  console.log("Grade: B");
+} else {
+  console.log("Grade: C");
+}
+
+const status = score &gt;= 50 ? "Pass" : "Fail";
+console.log(status);</code></pre>
+    </div>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>const day = "Sat";
+
+switch (day) {
+  case "Sat":
+  case "Sun":
+    console.log("Weekend!");
+    break;
+  default:
+    console.log("Weekday");
+}</code></pre>
+    </div>
+  </section>
+
+  <section id="loops">
+    <h2>6. Loops</h2>
+    <p>Loops repeat code. The most common are <code class="inline">for</code>,
+      <code class="inline">while</code>, and <code class="inline">for...of</code> (for arrays).</p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>for (let i = 1; i &lt;= 3; i++) {
+  console.log("for loop, i =", i);
+}
+
+let count = 3;
+while (count &gt; 0) {
+  console.log("while countdown:", count);
+  count--;
+}
+
+const fruits = ["apple", "banana", "cherry"];
+for (const fruit of fruits) {
+  console.log("fruit:", fruit);
+}</code></pre>
+    </div>
+  </section>
+
+  <section id="functions">
+    <h2>7. Functions</h2>
+    <p>
+      Functions are reusable blocks of code. They take <strong>parameters</strong> and can
+      <code class="inline">return</code> a value. Arrow functions are a shorter syntax.
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>// function declaration
+function add(a, b) {
+  return a + b;
+}
+
+// arrow function
+const square = (n) =&gt; n * n;
+
+// default parameter
+function greet(name = "stranger") {
+  return `Hi, ${name}!`;
+}
+
+console.log(add(4, 6));
+console.log(square(7));
+console.log(greet("Yahia"));
+console.log(greet());</code></pre>
+    </div>
+  </section>
+
+  <section id="arrays">
+    <h2>8. Arrays</h2>
+    <p>
+      Arrays are ordered lists. Indexes start at <code class="inline">0</code>. Methods like
+      <code class="inline">map</code>, <code class="inline">filter</code> and
+      <code class="inline">reduce</code> transform arrays without writing loops by hand.
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>const nums = [5, 2, 8, 1];
+
+console.log(nums[0]);       // first item
+console.log(nums.length);
+
+nums.push(10);              // add to end
+console.log(nums);
+
+nums.pop();                 // remove from end
+console.log(nums);
+
+console.log(nums.indexOf(8));</code></pre>
+    </div>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>const numbers = [1, 2, 3, 4, 5, 6];
+
+const doubled = numbers.map((n) =&gt; n * 2);
+const evens = numbers.filter((n) =&gt; n % 2 === 0);
+const total = numbers.reduce((sum, n) =&gt; sum + n, 0);
+
+console.log(doubled);
+console.log(evens);
+console.log(total);</code></pre>
+    </div>
+  </section>
+
+  <section id="objects">
+    <h2>9. Objects</h2>
+    <p>
+      Objects group related data as <strong>key: value</strong> pairs. Values can be anything,
+      including functions (called <strong>methods</strong>).
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>const student = {
+  name: "Yahia",
+  age: 20,
+  courses: ["Web", "Math"],
+  introduce() {
+    return `I'm ${this.name}, ${this.age} years old.`;
+  },
+};
+
+console.log(student.name);        // dot notation
+console.log(student["age"]);      // bracket notation
+console.log(student.courses[1]);
+console.log(student.introduce());
+
+student.age = 21;                 // update
+student.city = "Cairo";           // add new key
+console.log(Object.keys(student));</code></pre>
+    </div>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>// destructuring pulls values out into variables
+const { name, age } = student;
+console.log(name, age);
+
+const [firstCourse] = student.courses;
+console.log(firstCourse);</code></pre>
+    </div>
+  </section>
+
+  <section id="dom">
+    <h2>10. The DOM</h2>
+    <p>
+      The <strong>DOM</strong> (Document Object Model) is how JavaScript sees and changes the
+      HTML page. You select elements, change their content or style, and listen for events.
+    </p>
+    <div class="example">
+      <div class="label">Code</div>
+      <pre class="code"><code>&lt;p id="message"&gt;Click the button&lt;/p&gt;
+&lt;button id="btn"&gt;Click me&lt;/button&gt;
+
+&lt;script&gt;
+  const message = document.getElementById("message");
+  const btn = document.getElementById("btn");
+  let clicks = 0;
+
+  btn.addEventListener("click", () =&gt; {
+    clicks++;
+    message.textContent = `Clicked ${clicks} time(s)`;
+    message.style.color = "crimson";
+  });
+&lt;/script&gt;</code></pre>
+      <div class="label" style="margin-top:.5rem">Output (try it)</div>
+      <pre class="output" style="font-family: inherit;"><span id="message">Click the button</span>
+<button id="btn" type="button">Click me</button></pre>
+    </div>
+  </section>
+
+</main>
+
+<footer>Lab 3 &middot; JavaScript testing grounds</footer>
+
+<script>
+  // Run every non-DOM example and show what it logs underneath the code block.
+  function format(value) {
+    if (typeof value === "string") return value;
+    if (typeof value === "function") return "[Function]";
+    if (value === undefined) return "undefined";
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return String(value);
+    }
+  }
+
+  // Examples in one section share scope, so later blocks can use earlier variables.
+  document.querySelectorAll("section").forEach((section) => {
+    if (section.id === "dom") return;
+    const blocks = section.querySelectorAll("pre.code code");
+    let sharedSource = "";
+
+    blocks.forEach((block) => {
+      const source = block.textContent;
+      const lines = [];
+      const fakeConsole = { log: (...args) => lines.push(args.map(format).join(" ")) };
+
+      const out = document.createElement("pre");
+      out.className = "output";
+
+      try {
+        // Re-run earlier blocks silently so shared variables exist, then run this one.
+        new Function(
+          "console", "realConsole",
+          sharedSource + "\nconsole = realConsole;\n" + source
+        )({ log() {} }, fakeConsole);
+      } catch (err) {
+        lines.push(`${err.name}: ${err.message}`);
+        out.classList.add("error");
+      }
+
+      // Only keep successful blocks in the shared scope.
+      if (!out.classList.contains("error")) sharedSource += "\n" + source;
+
+      out.textContent = lines.join("\n") || "(no output)";
+      const label = document.createElement("div");
+      label.className = "label";
+      label.style.marginTop = ".5rem";
+      label.textContent = "Output";
+      block.parentElement.after(label, out);
+    });
+  });
+
+  // Live DOM demo
+  const message = document.getElementById("message");
+  const btn = document.getElementById("btn");
+  let clicks = 0;
+  btn.addEventListener("click", () => {
+    clicks++;
+    message.textContent = `Clicked ${clicks} time(s)`;
+    message.style.color = "crimson";
+  });
+</script>
+
+</body>
+</html>
